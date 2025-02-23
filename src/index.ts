@@ -18,7 +18,7 @@ app.use((req, res, next) => {
 });
 
 app.post("/interactions", verifyKeyMiddleware(PUBLIC_KEY), async (req, res) => {
-  const { id, type, data } = req.body;
+  const { type, data } = req.body;
 
   /**
    * Handle verification requests
