@@ -1,0 +1,28 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  checks:
+    name: 🧪 Checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+      - name: enable corepack
+        run: corepack enable
+      - name: install dependencies
+        run: pnpm i
+      - name: check format
+        run: pnpm format:check
+      - name: build
+        run: pnpm build
+      - name: lint
+        run: pnpm lint
+      - name: typecheck
+        run: pnpm typecheck
