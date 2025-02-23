@@ -14,6 +14,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
+      - name: debug
+        run: |
+          echo "Corepack version: $(corepack --version)"
       - name: enable corepack
         run: corepack enable
       - name: install dependencies
