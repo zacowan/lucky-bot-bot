@@ -7,6 +7,10 @@ const envSchema = z.object({
   GUILD_ID: z.string().nonempty(),
   BOT_TOKEN: z.string().nonempty(),
   NODE_ENV: z.enum(["development", "production"]).default("development"),
+  PORT: z
+    .string()
+    .default("5432")
+    .transform((val) => Number.parseInt(val)),
 });
 
 export const loadEnv = () => envSchema.parse(process.env);

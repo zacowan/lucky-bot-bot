@@ -7,7 +7,7 @@ import {
 import ngrok from "@ngrok/ngrok";
 import { loadEnv } from "./env.js";
 
-const { PUBLIC_KEY, NODE_ENV } = loadEnv();
+const { PUBLIC_KEY, NODE_ENV, PORT } = loadEnv();
 
 const app = express();
 
@@ -47,13 +47,13 @@ app.post("/interactions", verifyKeyMiddleware(PUBLIC_KEY), async (req, res) => {
   res.status(400).json({ error: "unknown interaction type" });
 });
 
-app.listen(3000, () => {
-  console.log("Server running on port 3000");
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
 
 if (NODE_ENV === "development") {
   const listener = await ngrok.forward({
-    addr: 3000,
+    addr: PORT,
     authtoken_from_env: true,
   });
 
