@@ -15,7 +15,7 @@ jobs:
         with:
           node-version-file: ".nvmrc"
       - name: install latest version of corepack
-        run: npm i -g corepack@^0.32.0
+        run: npm i -g corepack@latest
       - name: enable corepack
         run: corepack enable
       - name: install dependencies
