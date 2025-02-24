@@ -42,6 +42,7 @@ jobs:
       VERSION: latest
       IMAGE_NAME: zacowan/lucky-bot-bot-server
     steps:
+      - uses: actions/checkout@v4
       # Set up Docker Buildx for multi-platform support
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
