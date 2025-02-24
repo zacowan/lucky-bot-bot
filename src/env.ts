@@ -11,6 +11,7 @@ const envSchema = z.object({
     .string()
     .default("5432")
     .transform((val) => Number.parseInt(val)),
+  REST_URL: z.string().nonempty(),
 });
 
 export const loadEnv = () => envSchema.parse(process.env);
