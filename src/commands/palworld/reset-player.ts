@@ -48,9 +48,6 @@ export const resetPlayer: CommandHandler = async (data, res) => {
       `Found save file for ${value} at ${saveFile}, shutting down server.`,
     );
     await shutdownServer();
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    await fs.rm(saveFile);
-    console.log(`Deleted ${saveFile}`);
   } catch (error) {
     console.error(error);
     res.send({
@@ -68,4 +65,11 @@ export const resetPlayer: CommandHandler = async (data, res) => {
       content: `Player ${value} reset successfuly. Resetting server now.`,
     },
   });
+  /*
+  / Shut down server for 5 seconds to avoid backup regeneration
+  / Send response first to avoid timeout
+  */
+  await new Promise((resolve) => setTimeout(resolve, 5000));
+  await fs.rm(saveFile);
+  console.log(`Deleted ${saveFile}`);
 };
