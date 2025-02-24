@@ -37,7 +37,7 @@ jobs:
     if: github.ref == 'refs/heads/main' && success()
     strategy:
       matrix:
-        platform: [linux/amd64, linux/arm64]
+        platform: [linux/amd64] # linux/arm64 removed to not overwrite amd64 on latest
     env:
       VERSION: latest
       IMAGE_NAME: zacowan/lucky-bot-bot-server
