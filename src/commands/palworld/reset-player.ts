@@ -1,6 +1,6 @@
 import { InteractionResponseType } from "discord-interactions";
 import type { CommandHandler } from "../types.js";
-import { fetchPlayers, shutdownServer } from "./utils/palRestApi.js";
+import { fetchPlayers } from "./utils/palRestApi.js";
 import fs from "fs/promises";
 
 /**
@@ -44,6 +44,7 @@ export const resetPlayer: CommandHandler = async (data, res) => {
   const saveFile = `${saveDirectory}/${worldId}/Players/${playerId}.sav`;
   try {
     await fs.rm(saveFile);
+    console.log(`Deleted ${saveFile}`);
   } catch (error) {
     console.error(error);
     res.send({
@@ -62,5 +63,5 @@ export const resetPlayer: CommandHandler = async (data, res) => {
     },
   });
 
-  await shutdownServer();
+  // await shutdownServer();
 };
