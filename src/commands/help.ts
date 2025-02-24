@@ -1,7 +1,7 @@
 import { InteractionResponseType } from "discord-interactions";
-import type { RequestHandler } from "express";
+import type { CommandHandler } from "./types.js";
 
-export const help: RequestHandler = async (req, res) => {
+export const help: CommandHandler = async (data, res) => {
   res.send({
     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
     data: {

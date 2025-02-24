@@ -27,6 +27,14 @@ export const commands = {
         name: "reset-player",
         description: "Resets the provided player's save data on the server",
         type: ApplicationCommandOptionType.Subcommand,
+        options: [
+          {
+            name: "player-name",
+            description:
+              "Player name to be reset. Use the name associated with the platform you plan on.",
+            type: ApplicationCommandOptionType.String,
+          },
+        ],
       },
     ],
   },

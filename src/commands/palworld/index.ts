@@ -1,23 +1,21 @@
-import type { RequestHandler } from "express";
 import { resetPlayer } from "./reset-player.js";
 import { unknown } from "../unknown.js";
+import type { CommandHandler } from "../types.js";
 
-export const palworld: RequestHandler = async (req, res, next) => {
-  const { data } = req.body;
-
+export const palworld: CommandHandler = async (data, res) => {
   const { options } = data as { options: { name: string }[] };
-  const subcommand = options?.[0]?.name;
+  const subcommand = options.at(0);
   if (!subcommand) {
     res.status(400).json({ error: "unknown command" });
     return;
   }
 
-  switch (subcommand) {
+  switch (subcommand.name) {
     case "reset-player":
-      await resetPlayer(req, res, next);
+      await resetPlayer(subcommand, res);
       return;
     default:
-      await unknown(req, res, next);
+      await unknown(null, res);
       return;
   }
 };

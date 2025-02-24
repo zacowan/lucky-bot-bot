@@ -21,40 +21,36 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post(
-  "/interactions",
-  verifyKeyMiddleware(PUBLIC_KEY),
-  async (req, res, next) => {
-    const { type, data } = req.body;
+app.post("/interactions", verifyKeyMiddleware(PUBLIC_KEY), async (req, res) => {
+  const { type, data } = req.body;
 
-    /**
-     * Handle verification requests
-     */
-    if (type === InteractionType.PING) {
-      res.send({ type: InteractionResponseType.PONG });
-      return;
+  /**
+   * Handle verification requests
+   */
+  if (type === InteractionType.PING) {
+    res.send({ type: InteractionResponseType.PONG });
+    return;
+  }
+
+  if (type === InteractionType.APPLICATION_COMMAND) {
+    const { name } = data as { name: string };
+
+    switch (name) {
+      case commands.help.name:
+        await help(data, res);
+        return;
+      case commands.palworld.name:
+        await palworld(data, res);
+        return;
+      default:
+        await unknown(data, res);
+        return;
     }
+  }
 
-    if (type === InteractionType.APPLICATION_COMMAND) {
-      const { name } = data as { name: string };
-
-      switch (name) {
-        case commands.help.name:
-          await help(req, res, next);
-          return;
-        case commands.palworld.name:
-          await palworld(req, res, next);
-          return;
-        default:
-          await unknown(req, res, next);
-          return;
-      }
-    }
-
-    console.error("unknown interaction type", type);
-    res.status(400).json({ error: "unknown interaction type" });
-  },
-);
+  console.error("unknown interaction type", type);
+  res.status(400).json({ error: "unknown interaction type" });
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
