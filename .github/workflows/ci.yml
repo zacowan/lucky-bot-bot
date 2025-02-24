@@ -32,6 +32,7 @@ jobs:
   deploy-docker:
     name: 🐳 Deploy Docker Image
     runs-on: ubuntu-latest
+    environment: dockerhub
     needs: checks
     if: github.ref == 'refs/heads/main' && success()
     strategy:
