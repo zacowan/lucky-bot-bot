@@ -1,42 +1,35 @@
-import type {
-  APIApplicationCommand,
+import {
+  ApplicationCommandOptionType,
   ApplicationCommandType,
+  type APIApplicationCommandOption,
+  type APIApplicationCommand,
 } from "discord-api-types/v10";
 
-type Command = Omit<
+type ApplicationCommand = Omit<
   APIApplicationCommand,
-  | "id"
-  | "application_id"
-  | "version"
-  | "default_member_permissions"
-  | "type"
-  | "options"
-> & {
-  type?: ApplicationCommandType;
-  options?: Command[];
-};
+  "id" | "application_id" | "default_member_permissions" | "version"
+>;
 
-export const commands = [
-  {
-    name: "ping",
-    description: "Responds with pong",
-  },
-  {
+export type Command = APIApplicationCommandOption | ApplicationCommand;
+
+export const commands = {
+  help: {
     name: "help",
     description: "Displays help information",
+    type: ApplicationCommandOptionType.Subcommand,
   },
-  {
+  palworld: {
     name: "palworld",
     description: "Subcommands for Palworld",
+    type: ApplicationCommandType.ChatInput,
     options: [
-      {
-        name: "help",
-        description: "Displays help information for Palworld commands",
-      },
       {
         name: "reset-player",
         description: "Resets the provided player's save data on the server",
+        type: ApplicationCommandOptionType.Subcommand,
       },
     ],
   },
-] satisfies Command[];
+} satisfies {
+  [key: string]: Command;
+};
