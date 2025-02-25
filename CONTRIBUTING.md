@@ -41,6 +41,8 @@ When developing new commands, you'll need to let the Discord application know th
 
 Conventional commits make it easier to generate changelogs and automate releases. While this project does not currently use any form of automated [semantic release](https://github.com/semantic-release/semantic-release), it is recommended to follow the [Conventional Commits specification](https://www.conventionalcommits.org) to ensure consistency and clarity in your commit messages.
 
+To help with this, you can use a tool like [commitizen](https://github.com/commitizen/cz-cli) which provides an interactive cli for creating commit messages that follow the conventional commit format.
+
 ### Leave Comments for Weird Decisions
 
 When making decisions that may not be immediately obvious, it's important to leave comments explaining your reasoning. This helps future developers understand the context and rationale behind the decision.
