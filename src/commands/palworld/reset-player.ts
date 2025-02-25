@@ -5,6 +5,7 @@ import fs from "fs/promises";
 
 /**
  * Using the provided player name, reset the player's saved data from the server.
+ * Takes a string delimited by commas and a space as input for each player name.
  *
  * Specifically:
  * 1. Query the Palworld REST API for the player's game id using the provided player name.
@@ -15,27 +16,31 @@ import fs from "fs/promises";
 export const resetPlayer: CommandHandler = async (data, res) => {
   const { options } = data as { options: { name: string; value: string }[] };
   const value = options?.[0]?.value;
+  const inputList = value ? value.split(", ") : [];
   let errorMessage = "Failed to fetch players. Server may be paused or down.";
   try {
     const players = await fetchPlayers();
-    const player = players.find((player) => player.name === value);
-    if (!player) {
+    const playerObjectList = players.filter((player) =>
+      inputList.includes(player.name),
+    );
+    if (!playerObjectList.length) {
       errorMessage = `Player ${value} not found. Is the player logged in?`;
       throw new Error(errorMessage);
     }
 
-    const playerId = player.playerId;
-    const saveDirectory = `/palworld/Pal/Saved/SaveGames/0/`;
-    const worldDirectory = await fs.readdir(saveDirectory);
-    const worldId = worldDirectory[0];
-    const saveFile = `${saveDirectory}/${worldId}/Players/${playerId}.sav`;
+    const saveFilePaths = [];
+    for (const player of playerObjectList) {
+      const playerId = player.playerId;
+      const saveDirectory = `/palworld/Pal/Saved/SaveGames/0/`;
+      const worldDirectory = await fs.readdir(saveDirectory);
+      const worldId = worldDirectory[0];
+      const saveFile = `${saveDirectory}/${worldId}/Players/${playerId}.sav`;
 
-    errorMessage = `Save file for ${value} not found.`;
-    await fs.access(saveFile);
-
-    console.log(
-      `Found save file for ${value} at ${[playerId]}, shutting down server.`,
-    );
+      errorMessage = `Save file for ${value} not found.`;
+      await fs.access(saveFile);
+      console.log(`Found save file for ${value} at ${[playerId]}.`);
+      saveFilePaths.push(saveFile);
+    }
 
     errorMessage = "Failed to shut down server.";
     await shutdownServer();
@@ -48,8 +53,10 @@ export const resetPlayer: CommandHandler = async (data, res) => {
     });
 
     await new Promise((resolve) => setTimeout(resolve, 5000));
-    await fs.rm(saveFile);
-    console.log(`Deleted ${saveFile}`);
+    for (const saveFile of saveFilePaths) {
+      await fs.rm(saveFile);
+      console.log(`Deleted ${saveFile}`);
+    }
   } catch (error) {
     console.error(error);
     res.send({
