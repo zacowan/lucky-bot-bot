@@ -36,6 +36,11 @@ export const commands = {
           },
         ],
       },
+      {
+        name: "show-players",
+        description: "Shows the list of players currently on the server",
+        type: ApplicationCommandOptionType.Subcommand,
+      },
     ],
   },
 } satisfies {
