@@ -19,13 +19,21 @@ export const changeSeed: CommandHandler = async (data, res) => {
   let errorMessage = "Failed to read config.";
   try {
     const envPath = path.resolve("/app/palConfig/.env");
+    const configPath =
+      "/palworld/Pal/Saved/Config/LinuxServer/PalWorldSettings.ini";
     const envContent = await fs.readFile(envPath, "utf-8");
+    const configContent = await fs.readFile(configPath, "utf-8");
     const updatedContent = envContent.replace(
       /RANDOMIZER_SEED=.*/,
       "RANDOMIZER_SEED=" + newSeed,
     );
+    const updatedConfig = configContent.replace(
+      /RANDOMIZER_SEED=".*"/,
+      'RANDOMIZER_SEED="' + newSeed + '"',
+    );
     errorMessage = "Failed to write new seed to config";
     await fs.writeFile(envPath, updatedContent);
+    await fs.writeFile(configPath, updatedConfig);
 
     errorMessage = "Failed to shut down server.";
     await shutdownServer();
