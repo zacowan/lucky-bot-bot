@@ -37,7 +37,7 @@ export const changeSeed: CommandHandler = async (data, res) => {
       },
     });
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 5000));
     const saveDirectory = `/palworld/Pal/Saved/SaveGames/0`;
     await fs.rm(saveDirectory, { recursive: true, force: true });
     console.log(`Deleted ${saveDirectory}`);
