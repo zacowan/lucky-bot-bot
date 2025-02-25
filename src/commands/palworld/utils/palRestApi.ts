@@ -1,19 +1,7 @@
 import { loadEnv } from "../../../env.js";
+import type { PlayersResponse } from "../../types.js";
 
 const { REST_URL, REST_USER, REST_PASS } = loadEnv();
-type PlayersResponse = {
-  players: Array<{
-    name: string;
-    accountName: string;
-    playerId: string;
-    ip: string;
-    ping: number;
-    location_x: number;
-    location_y: number;
-    level: number;
-    building_count: number;
-  }>;
-};
 
 const abortTimeout = 2000;
 const headers = new Headers();

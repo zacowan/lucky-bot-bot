@@ -1,5 +1,6 @@
 import { resetPlayer } from "./reset-player.js";
 import { showPlayers } from "./show-players.js";
+import { changeSeed } from "./change-seed.js";
 import { unknown } from "../unknown.js";
 import type { CommandHandler } from "../types.js";
 
@@ -17,6 +18,9 @@ export const palworld: CommandHandler = async (data, res) => {
       return;
     case "show-players":
       await showPlayers(subcommand, res);
+      return;
+    case "change-seed":
+      await changeSeed(subcommand, res);
       return;
     default:
       await unknown(null, res);

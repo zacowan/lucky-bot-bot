@@ -41,6 +41,18 @@ export const commands = {
         description: "Shows the list of players currently on the server",
         type: ApplicationCommandOptionType.Subcommand,
       },
+      {
+        name: "change-seed",
+        description: "Changes the world seed and resets the world.",
+        type: ApplicationCommandOptionType.Subcommand,
+        options: [
+          {
+            name: "seed",
+            description: "New seed to use for randomizer world generation.",
+            type: ApplicationCommandOptionType.String,
+          },
+        ],
+      },
     ],
   },
 } satisfies {
