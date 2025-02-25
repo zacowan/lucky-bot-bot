@@ -16,7 +16,9 @@ export const showPlayers: CommandHandler = async (data, res) => {
   const errorMessage = "Failed to fetch players. Server may be paused or down.";
   try {
     const players = await fetchPlayers();
-    const playerList = players.map((player) => player.name);
+    const playerList = players.map(
+      (player) => `${player.name} - Level ${player.level}`,
+    );
     res.send({
       type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
       data: {
