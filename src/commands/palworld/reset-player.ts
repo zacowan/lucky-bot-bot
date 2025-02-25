@@ -29,6 +29,7 @@ export const resetPlayer: CommandHandler = async (data, res) => {
     }
 
     const saveFilePaths = [];
+    const resetPlayerNames = [];
     for (const player of playerObjectList) {
       const playerId = player.playerId;
       const saveDirectory = `/palworld/Pal/Saved/SaveGames/0/`;
@@ -40,6 +41,7 @@ export const resetPlayer: CommandHandler = async (data, res) => {
       await fs.access(saveFile);
       console.log(`Found save file for ${value} at ${[playerId]}.`);
       saveFilePaths.push(saveFile);
+      resetPlayerNames.push(player.name);
     }
 
     errorMessage = "Failed to shut down server.";
@@ -48,7 +50,7 @@ export const resetPlayer: CommandHandler = async (data, res) => {
     res.send({
       type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
       data: {
-        content: `Player ${value} reset successfuly. Resetting server now.`,
+        content: `Player(s) ${resetPlayerNames.join(", ")} reset successfuly. Resetting server now.`,
       },
     });
 
