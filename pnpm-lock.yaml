@@ -13,7 +13,7 @@ importers:
         version: 2.4.3
       '@hono/node-server':
         specifier: ^1.13.8
-        version: 1.13.8(hono@4.7.2)
+        version: 1.13.8(hono@4.12.12)
       discord-api-types:
         specifier: ^0.37.119
         version: 0.37.119
@@ -27,8 +27,8 @@ importers:
         specifier: ^4.21.2
         version: 4.21.2
       hono:
-        specifier: ^4.7.2
-        version: 4.7.2
+        specifier: ^4.12.12
+        version: 4.12.12
       prettier:
         specifier: ^3.5.2
         version: 3.5.2
@@ -880,8 +880,8 @@ packages:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
 
-  hono@4.7.2:
-    resolution: {integrity: sha512-8V5XxoOF6SI12jkHkzX/6aLBMU5GEF5g387EjVSQipS0DlxWgWGSMeEayY3CRBjtTUQYwLHx9JYouWqKzy2Vng==}
+  hono@4.12.12:
+    resolution: {integrity: sha512-p1JfQMKaceuCbpJKAPKVqyqviZdS0eUxH9v82oWo1kb9xjQ5wA6iP3FNVAPDFlz5/p7d45lO+BpSk1tuSZMF4Q==}
     engines: {node: '>=16.9.0'}
 
   http-errors@2.0.0:
@@ -1538,9 +1538,9 @@ snapshots:
       '@eslint/core': 0.12.0
       levn: 0.4.1
 
-  '@hono/node-server@1.13.8(hono@4.7.2)':
+  '@hono/node-server@1.13.8(hono@4.12.12)':
     dependencies:
-      hono: 4.7.2
+      hono: 4.12.12
 
   '@humanfs/core@0.19.1': {}
 
@@ -2204,7 +2204,7 @@ snapshots:
     dependencies:
       function-bind: 1.1.2
 
-  hono@4.7.2: {}
+  hono@4.12.12: {}
 
   http-errors@2.0.0:
     dependencies:
